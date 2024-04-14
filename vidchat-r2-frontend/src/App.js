@@ -22,16 +22,17 @@ function App() {
 	const [ callEnded, setCallEnded] = useState(false)
 	const [ name, setName ] = useState("")
 	const myVideo = useRef()
+  myVideo.current = null
 	const userVideo = useRef()
 	const connectionRef= useRef()
 
 	useEffect(() => {
-		navigator.mediaDevices.getUserMedia({ video: false, audio: true }).then((stream) => {
+		navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
 			setStream(stream)
-      // if(myVideo.current){
+      if(myVideo.current){
         console.log("Setting the video stream")
-      myVideo.current.srcObject = stream
-      // }
+        myVideo.current.srcObject = stream
+      }
 		})
 
 	socket.on("me", (id) => {
@@ -104,7 +105,7 @@ function App() {
 		<div className="container">
 			<div className="video-container">
 				<div className="video">
-					{stream && {srcObject: stream} && <video playsInline muted ref={myVideo} autoPlay style={{ width: "300px" }}/>}
+					{stream && <video playsInline muted ref={myVideo} autoPlay style={{ width: "300px" }}/>}
 				</div>
 				<div className="video">
 					{callAccepted && !callEnded ?
