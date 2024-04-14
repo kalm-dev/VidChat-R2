@@ -30,7 +30,7 @@ function App() {
 		navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
 			setStream(stream)
       if(myVideo.current){
-        console.log("Setting the video stream")
+        // console.log("Setting the video stream")
         myVideo.current.srcObject = stream
       }
 		})
